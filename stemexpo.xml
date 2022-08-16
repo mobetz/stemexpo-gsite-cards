@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Module>
+    <ModulePrefs title="STEMExpo Project Card" title_url=""
+          description="Renders data about one student project with video and discussion."
+          thumbnail="https://www.gstatic.com/sites-gadgets/common/images/sites-icon-gadget-thumb.png"
+          screenshot="https://www.gstatic.com/sites-gadgets/common/images/sites-icon-gadget-ss.png"
+          height="800" width="400" author="Matthew Obetz">
+    <Require feature="dynamic-height"/>
+  </ModulePrefs>
+  <UserPref name="title" display_name="Project Title" required="true"/>
+  <UserPref name="course" display_name="Course Name" required="true"/>
+  <UserPref name="student" display_name="Student or Group" required="true"/>
+  <UserPref name="faculty" display_name="Associated Faculty" required="true"/>
+  <UserPref name="video_link" display_name="YouTube Video URL" required="true"/>
+  <UserPref name="summary" display_name="Project Summary" required="true"/>
+
+  <Content type="html" view="default,canvas">
+<![CDATA[ 
+
+<script type="text/javascript">
+      let prefs = new gadgets.Prefs();
+
+    //PROJECT SETTINGS
+      const title =  prefs.getString('title');
+      const course =  prefs.getString('course');
+      const student =  prefs.getString('student');
+      const faculty =  prefs.getString('faculty');
+      //const video_link = "https://www.youtube.com/watch?v=FRoJFMbuVxw";
+      const video_link =  prefs.getString('video_link')
+      const description =  prefs.getString('summary');
+
+</script>
+
+
+
+<script type="text/javascript">
+
+//Helper function to convert a full YouTube URL (i.e as provided in settings) into a VideoId for embedding/querying
+function extract_video_id_from_link(url) {
+     let url_obj = new URL(url);
+
+     if (url_obj.host.includes("youtube.com") && url_obj.searchParams.has("v") ) {
+        return url_obj.searchParams.get("v");
+     } else if ( url_obj.host.includes("youtu.be") ) {
+        return url_obj.pathname.substr(1);
+     } else { 
+        return url;
+     }
+  }
+
+//Helper function to convert a YouTube "snippet" into a comment below the video
+function comment_to_bubble_div(comment_obj) {
+    let data_container = comment_obj.snippet;
+    if (data_container.topLevelComment) { 
+        data_container = data_container.topLevelComment.snippet;
+    }
+
+    let message_text = data_container.textDisplay;
+    let author = data_container.authorDisplayName;
+    let author_img = data_container.authorProfileImageUrl;
+
+
+    let bubble = document.createElement("div");
+    bubble.classList.add("comment")
+    let pfp = document.createElement("img");
+    pfp.src = author_img;
+    pfp.classList.add("pfp")
+
+    let message = document.createElement("span");
+    //Youtube sends us &#39; instead of apostrophes, so we have to HTML parse the text
+    message.innerText = new DOMParser().parseFromString(message_text,'text/html').querySelector('html').textContent; 
+    message.classList.add("message-text")
+
+    let comment_author = document.createElement("span");
+    comment_author.innerText = author;
+    comment_author.classList.add("comment-author");
+
+    bubble.appendChild(pfp);
+    bubble.appendChild(comment_author);
+    bubble.appendChild(message);
+
+    if (comment_obj.replies) {
+        let replies = document.createElement("div");
+        replies.classList.add("replies")
+        for ( reply_obj of comment_obj.replies.comments) {
+            let reply_div = comment_to_bubble_div(reply_obj);
+            replies.appendChild(reply_div);
+        }
+        bubble.appendChild(replies)
+
+    }
+
+    return bubble;
+}
+
+  //SETTING TEXT IN PROJECT CARD FROM PROVIDED VALUES
+document.addEventListener("DOMContentLoaded", function () {
+    let title_header = document.getElementById("project_title");
+    title_header.innerText = title;
+
+    let course_span = document.getElementById("project_course");
+    course_span.innerText = course;
+
+    let author_span = document.getElementById("author");
+    author_span.innerText = student;
+
+    let faculty_span = document.getElementById("faculty");
+    faculty_span.innerText = faculty;
+
+    let description_span = document.getElementById("description");
+    description_span.innerText = description;
+
+    let video_frame = document.getElementById("video_frame");
+    video_frame.src = "https://www.youtube.com/embed/" + extract_video_id_from_link(video_link);
+
+
+
+   //YouTube API Comment Code
+
+     let comment_api = new URL('https://youtube.googleapis.com/youtube/v3/commentThreads');
+     comment_api.searchParams.set('part', 'snippet,replies');
+     comment_api.searchParams.set('videoId', extract_video_id_from_link(video_link))
+     comment_api.searchParams.set('key', 'AIzaSyC18e1ls1rwd6Kq_TkBPThaZHu6XjMHwqM' )
+     fetch(comment_api, 
+     {
+        method: "GET"
+     }).then((resp) => {
+        if ( !resp.ok) {
+            console.warn("Failed to read YouTube comments for: " + extract_video_id_from_link(video_link) + ". Response " + resp.status + ": " + resp.statusText)
+        }
+        return resp.json()
+
+     }).then((resp_body) => {
+        console.log("Response body: " + JSON.stringify(resp_body));
+
+        let conversation = document.getElementById("comment_container");
+        for ( let comment of resp_body.items) {
+            let div = comment_to_bubble_div(comment);
+            conversation.appendChild(div);
+        }
+     })
+
+  });
+
+</script>
+
+
+
+
+         <style>
+            h3 { 
+                color: #ff0000;
+                font-family: 'Open Sans';
+            }
+
+            #project_course,#author,#faculty,#description {
+               font-weight: bold;
+            }
+
+            #comment_container {
+               max-height: 250px;
+               overflow-y: scroll;
+               max-width:  400px;
+            }
+
+
+            .comment {
+                padding:  2px;
+                margin:  2px;
+                border:  1px solid dimgrey;
+                border-radius:  10px;
+                display: grid;
+                grid-template-areas:  
+                "pfp name"
+                "pfp message";
+                grid-template-columns:  60px 1fr;
+
+            }
+
+            .pfp {
+                border-radius:  100px;
+                grid-area:  pfp;
+            }
+
+            .message-text {
+                grid-area:  message;
+            }
+
+            .comment-author {
+                grid-area:  name;
+                font-weight: 700;
+            }
+
+            .replies {
+                grid-column-start:  pfp;
+                grid-column-end:  message;
+            }
+
+          </style>
+
+         <h3 id="project_title"></h3>
+         <p><span>Course:</span> <span id="project_course"></span></p>
+         <p><span>Presenter:</span> <span id="author"></span></p>
+         <p><span>Faculty:</span> <span id="faculty"></span></p>
+
+         <iframe id="video_frame" src="https://www.youtube.com/embed/ABCDEFG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+         <p>Brief Description:<span id="description"></span></p> 
+
+         <p>See discussion on this project:</p>
+         <div id="comment_container">
+         </div>
+ ]]>
+</Content>
+</Module>
