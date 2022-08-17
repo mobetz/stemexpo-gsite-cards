@@ -1,10 +1,12 @@
 
 <style>
+	 :root{
+		 --comment-bubble-color: red;
+	 }
+
     .comment {
         padding:  2px;
         margin:  2px;
-        border:  1px solid dimgrey;
-        border-radius:  10px;
         display: grid;
         grid-template-areas:  
         "pfp name"
@@ -14,13 +16,22 @@
     }
 
     .pfp {
+		position: relative;
+		top: 10px;
         border-radius:  100px;
         grid-area:  pfp;
     }
 
     .message-text {
         grid-area:  message;
+		background-color: var(--comment-bubble-color, darkslategray);
+		color: white;
+		padding: 9px;
+		border-radius: 10px;
     }
+	.comment:nth-of-type(2n) > .message-text {
+		background-color: red;
+	}
 
     .comment-author {
         grid-area:  name;
