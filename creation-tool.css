@@ -1,0 +1,148 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+:root {
+    font-family: 'Open Sans', sans-serif;
+    --input-length: 450px;
+}
+
+html,body {
+    padding: 0;
+    margin: 0;
+}
+main {
+    margin: auto;
+    max-width: 1200px;
+    margin-top: 100px;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 2em;
+    color: white;
+}
+
+h1:after {
+    display: block;
+    content: "";
+    width: 40%;
+    height: 1px;
+    margin: auto;
+    border-bottom: 5px red solid;
+}
+
+#banner {
+    position: relative;
+    margin: 0;
+    height: 200px;
+}
+
+#banner > h1 {
+    position: relative;
+    top: 50px;
+}
+
+#banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(50deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url("https://images.unsplash.com/photo-1583607264434-2d8e199b3a17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+    background-position-y: 600px;
+    background-blend-mode: darken;
+}
+
+.button {
+    text-decoration: none;
+    background: rgba(180, 0, 0, 1);
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    width: fit-content;
+    display: block;
+}
+
+.button:hover {
+    background: rgba(210, 0, 0, 1);
+}
+
+.button:active {
+    transform: scale(0.99);
+    background: radial-gradient(rgba(230, 0, 0, 1), rgba(210, 0, 0, 1));
+}
+
+.form label {
+    display: inline-block;
+    width: 150px;
+}
+
+.form > div {
+    margin: 10px;
+    position: relative;
+}
+
+.form > h2 {
+    margin-bottom: 25px;
+}
+
+.form {
+    width: fit-content;
+}
+
+input[type=text]::placeholder, textarea::placeholder {
+    color: darkgrey;
+}
+
+input[type=text], textarea {
+    border: none;
+    width: var(--input-length);
+    background: white no-repeat;
+    /* start with a white background, no-repeat allows the gradients below to only affect the bottom */
+
+    /*Create the two different bottom borders: a 1px grey line, and a 2px red line*/
+    /*NOTE: we always want the 'highlighted' bottom first so it masks the unfocused line */
+    background-image: linear-gradient(to bottom, red, red),
+                      linear-gradient(to bottom, darkgrey, darkgrey);
+    background-size: 0 2px,
+                     100% 1px;
+    background-position: 0 100%, /* 0 here says 'start on the left'; 50% would start in the middle*/
+                         0 100%;
+    /*When :focus occurs, we change between the background-size of this rule and that one */
+    transition: background-size 0.3s ease-in;
+}
+
+input[type=text]:focus, textarea:focus {
+    background-size: 100% 2px,
+                     100% 1px;
+    transition: background-size 0.3s ease-in;
+}
+
+
+input[type=text]:focus+.eyecandy:after {
+    transition: width ease-in 0.3s;
+    width: var(--input-length)
+}
+
+textarea {
+    width: calc(var(--input-length) - 14px);
+    height: 7em;
+    border: 1px solid lightgrey;
+    padding: 7px;
+    font-family: 'Oswald', sans-serif;
+    resize: none;
+    font-size: 16px;
+}
