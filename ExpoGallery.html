@@ -1,8 +1,8 @@
 
 <style>
 
-    :root {
-        --gallery-width: 1154px;
+    * {
+        --gallery-width: 1153px;
         --project-margins: 6px;
         --project-width: calc(calc(var(--gallery-width) / 3) - 2*var(--project-margins));
     }
@@ -21,7 +21,7 @@
         flex-basis: 30%;
     }
 
-    @media(min-width: calc((var(--project-width)+ 2*var(--project-margins)) * 3)) {
+    @media(min-width: 1153px) {
         ::slotted(expo-project:nth-child(3n - 2)):after {
             width: 250%;
             margin-left: 15%;
@@ -35,8 +35,7 @@
         }
     }
 
-    @media (min-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 2)))
-    and (max-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 3) - 1)) {
+    @media (min-width: 770px) and (max-width: 1152px) {
         ::slotted(expo-project:nth-child(2n - 1)):after {
             width: 150%;
             margin-left: 15%;
@@ -50,7 +49,7 @@
         }
     }
 
-    @media(max-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 2) - 1))  {
+    @media(max-width: 769px)  {
         ::slotted(expo-project):after {
             width: 80%;
             margin-left: 10%;
