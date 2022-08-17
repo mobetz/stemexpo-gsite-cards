@@ -5,6 +5,12 @@
     <title>STEMExpo Project Creator</title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Oswald%3A400%2C600%2C700%7COpen%20Sans%3A400%2C600%2C700&display=swap" />
   <link rel="stylesheet" type="text/css" href="creation-tool.css">
+    <link rel="stylesheet" type="text/css" href="creator.css">
+  <script type="module" src="creator.js"></script>
+
+    <script  type="module" src="ExpoComment.mjs"></script>
+    <script  type="module" src="ExpoProject.mjs"></script>
+    <script  type="module" src="ExpoGallery.mjs"></script>
 </head>
 <body>
 
@@ -26,8 +32,8 @@
             <input id="course" type="text" placeholder="ENG 123 Intro to Mad Science">
         </div>
         <div>
-            <label for="name">Presenters:</label>
-            <input id="name" type="text" placeholder="Jane Doe">
+            <label for="author">Presenters:</label>
+            <input id="author" type="text" placeholder="Jane Doe">
         </div>
         <div>
             <label for="faculty">Instructor:</label>
@@ -38,12 +44,33 @@
             <input id="video" type="text" placeholder="https://www.youtube.com/watch?v=FRoJFMbuVxw">
         </div>
         <div>
-            <label for="desc">Short Description:</label>
-            <textarea id="desc" placeholder="In this project, we created a nuclear-powered potato battery using some copper wire and radioactive rocks we found on campus."></textarea>
+            <label for="description">Short Description:</label>
+            <textarea id="description" placeholder="In this project, we created a nuclear-powered potato battery using some copper wire and radioactive rocks we found on campus."></textarea>
         </div>
+
+        <button class="button invert" id="clipboard">Copy to Clipboard</button>
+        <button class="button" id="add_to_page">Save to Page and Continue</button>
     </div>
 
-    <div id="preview"></div>
+    <div id="preview"><expo-project id="preview-project"
+        video="https://www.youtube.com/watch?v=FRoJFMbuVxw"
+        title="Nuclear Powered Potato Battery"
+        course="ENG 123 Intro to Mad Science"
+        faculty="Prof. Enrico Fermi"
+        author="Jane Doe"
+        description="In this project, we created a nuclear-powered potato battery using some copper wire and radioactive rocks we found on campus."></expo-project>
+</div>
+
+    <div id="snippet">
+        <p>All projects created so far:</p>
+    <textarea id="full-code"></textarea>
+    </div>
+
+    <div id="sample-page">
+        <expo-gallery id="gallery">
+
+        </expo-gallery>
+    </div>
 </main>
 </body>
 </html>

@@ -85,6 +85,22 @@ h1:after {
     background: radial-gradient(rgba(230, 0, 0, 1), rgba(210, 0, 0, 1));
 }
 
+.button.invert {
+    background: white;
+    color: rgba(180, 0, 0, 1);
+    border: 3px solid rgba(180, 0, 0, 1);
+}
+
+.button.invert:hover {
+    color: rgba(220, 0, 0, 1);
+    border: 3px solid rgba(220, 0, 0, 1);
+}
+
+.button.invert:active {
+    color: rgba(240, 0, 0, 1);
+    border: 3px solid rgba(240, 0, 0, 1);
+}
+
 .form label {
     display: inline-block;
     width: 150px;

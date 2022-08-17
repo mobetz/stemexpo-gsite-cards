@@ -1,4 +1,4 @@
-fetch("./ExpoComment.html")
+fetch("https://mobetz.github.io/stemexpo-gsite-cards/ExpoComment.html")
     		.then((resp_wrapper) => {
     			return resp_wrapper.text();
     		}).then((ExpoCommentHTML) => {

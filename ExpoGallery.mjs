@@ -1,4 +1,4 @@
-fetch("./ExpoGallery.html")
+fetch("https://mobetz.github.io/stemexpo-gsite-cards/ExpoGallery.html")
     .then((resp_wrapper) => {
         return resp_wrapper.text();
     }).then((ExpoGalleryHTML) => {

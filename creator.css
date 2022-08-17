@@ -1,0 +1,65 @@
+#preview {
+    width: 400px;
+    grid-area: preview;
+}
+
+main {
+    display: grid;
+    grid-template-areas:
+            "form preview"
+            "snippet full";
+    margin-bottom: 50px;
+}
+
+#project_form {
+    grid-area: form;
+}
+
+#snippet {
+    grid-area: snippet;
+    width: 700px;
+}
+
+#full-code {
+    width: 90%;
+    font-size: 12px;
+    font-family: monospace;
+    min-height: 25em;
+}
+
+#sample-page {
+    grid-area: full;
+    width: 1600px;
+    margin-left: -500px;
+    height: 1000px;
+    margin-top: -300px;
+    overflow: auto;
+    transform: scale(calc(1/3));
+    border: 1px dotted darkgrey;
+}
+
+.button {
+    display: inline-block;
+    margin: 20px;
+}
+
+#clipboard {
+    position: relative;
+}
+#clipboard:after {
+    content: "Successfully copied to clipboard!";
+    position: absolute;
+    bottom: -40px;
+    left: 10%;
+    width: 200%;
+    color: white;
+    background: darkred;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+#clipboard.success:after {
+    opacity: 100%;
+    transition: opacity 0s;
+}
