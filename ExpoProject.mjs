@@ -111,6 +111,9 @@ function createComponent(template) {
 
 
         loadComments() {
+            let conversation = this.shadowRoot.getElementById("comment_container");
+            conversation.innerHTML = ""; //clear any previously loaded comments
+            let comments_found = false;
 
             let comment_api = new URL('https://youtube.googleapis.com/youtube/v3/commentThreads');
             comment_api.searchParams.set('part', 'snippet,replies');
@@ -126,13 +129,27 @@ function createComponent(template) {
                 return resp.json()
 
             }).then((resp_body) => {
-                console.log("Response body: " + JSON.stringify(resp_body));
 
-                let conversation = this.shadowRoot.getElementById("comment_container");
                 for ( let comment of resp_body.items) {
+                    comments_found = true;
                     let comment_div = document.createElement("expo-comment")
                     comment_div.fromYoutubeComment(comment);
                     conversation.appendChild(comment_div);
+                }
+
+                if ( comments_found ) {
+                    let teaser = this.shadowRoot.getElementById("convo_teaser");
+                    teaser.innerHTML = `See discussion on this project:`;
+
+                    let invitation = this.shadowRoot.getElementById("convo_invitation");
+                    invitation.innerHTML = `Join this conversation <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
+                } else {
+                    let teaser = this.shadowRoot.getElementById("convo_teaser");
+                    teaser.innerHTML = `Be the first to comment <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
+
+                    let invitation = this.shadowRoot.getElementById("convo_invitation");
+                    invitation.innerHTML = ``;
+
                 }
             })
         }
