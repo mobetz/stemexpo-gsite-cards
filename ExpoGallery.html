@@ -1,21 +1,27 @@
 
 <style>
 
+    :root {
+        --gallery-width: 1154px;
+        --project-margins: 6px;
+        --project-width: calc(calc(var(--gallery-width) / 3) - 2*var(--project-margins));
+    }
+
     #gallery {
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        max-width: 1260px;
+        max-width: var(--gallery-width);
         margin: auto;
     }
 
     #gallery  ::slotted(expo-project) {
-        min-width: 400px;
-        margin: 6px;
+        min-width: var(--project-width);
+        margin: var(--project-margins);
         flex-basis: 30%;
     }
 
-    @media(min-width: 1260px) {
+    @media(min-width: calc((var(--project-width)+ 2*var(--project-margins)) * 3)) {
         ::slotted(expo-project:nth-child(3n - 2)):after {
             width: 250%;
             margin-left: 15%;
@@ -29,7 +35,8 @@
         }
     }
 
-    @media(min-width: 830px) and (max-width: 1259px) {
+    @media (min-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 2)))
+    and (max-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 3) - 1)) {
         ::slotted(expo-project:nth-child(2n - 1)):after {
             width: 150%;
             margin-left: 15%;
@@ -43,7 +50,7 @@
         }
     }
 
-    @media(max-width: 829px) {
+    @media(max-width: calc(((var(--project-width)+ 2*var(--project-margins)) * 2) - 1))  {
         ::slotted(expo-project):after {
             width: 80%;
             margin-left: 10%;
