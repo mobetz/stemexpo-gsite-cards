@@ -1,0 +1,41 @@
+
+<style>
+    .comment {
+        padding:  2px;
+        margin:  2px;
+        border:  1px solid dimgrey;
+        border-radius:  10px;
+        display: grid;
+        grid-template-areas:  
+        "pfp name"
+        "pfp message";
+        grid-template-columns:  60px 1fr;
+
+    }
+
+    .pfp {
+        border-radius:  100px;
+        grid-area:  pfp;
+    }
+
+    .message-text {
+        grid-area:  message;
+    }
+
+    .comment-author {
+        grid-area:  name;
+        font-weight: 700;
+    }
+
+	.replies {
+		grid-column-start: pfp;
+		grid-column-end: message;
+	}
+</style>
+
+<div class="comment">
+	<img class="pfp"/>
+	<div class="comment-author"></div>
+	<div class="message-text"></div>
+	<div class="replies"></div>
+</div>
