@@ -1,0 +1,42 @@
+:root{
+    --comment-bubble-color: red;
+}
+
+.comment {
+    padding:  2px;
+    margin:  2px;
+    display: grid;
+    grid-template-areas:
+        "pfp name"
+        "pfp message";
+    grid-template-columns:  60px 1fr;
+
+}
+
+.pfp {
+    position: relative;
+    top: 10px;
+    border-radius:  100px;
+    grid-area:  pfp;
+}
+
+.message-text {
+    grid-area:  message;
+    background-color: var(--comment-bubble-color, darkslategray);
+    color: white;
+    padding: 9px;
+    border-radius: 10px;
+}
+.comment:nth-of-type(2n) > .message-text {
+    background-color: red;
+}
+
+.comment-author {
+    grid-area:  name;
+    font-weight: 700;
+}
+
+.replies {
+    grid-column-start: pfp;
+    grid-column-end: message;
+}

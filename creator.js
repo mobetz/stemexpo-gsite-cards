@@ -47,5 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `
         code.value = boilerplate + "\n" + gallery.outerHTML;
 
+
     })
 })
