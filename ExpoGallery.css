@@ -7,7 +7,8 @@
 
 #gallery {
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-areas: var(--project-width) var(--project-width) var(--project-width);
     flex-wrap: wrap;
     max-width: var(--gallery-width);
     margin: auto;
@@ -16,16 +17,15 @@
 #gallery  ::slotted(expo-project) {
     min-width: var(--project-width);
     margin: var(--project-margins);
-    flex-basis: 30%;
 }
 
 @media(min-width: 1140px) {
     ::slotted(expo-project:nth-child(3n - 2)):after {
         width: 250%;
         margin-left: 15%;
-        position: relative;
+        position: absolute;
         content: "";
-        top: 20px;
+        bottom: -10px;
         margin-top: 20px;
         margin-bottom: 10px;
         border-bottom: 4px solid rgba(255,82,82,1);
