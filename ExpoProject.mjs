@@ -129,28 +129,39 @@ function createComponent(template) {
                 return resp.json()
 
             }).then((resp_body) => {
+                let teaser = this.shadowRoot.getElementById("convo_teaser");
 
-                for ( let comment of resp_body.items) {
-                    comments_found = true;
-                    let comment_div = document.createElement("expo-comment")
-                    comment_div.fromYoutubeComment(comment);
-                    conversation.appendChild(comment_div);
-                }
+                if ( resp_body.error ) {
+                    if (resp_body.error.errors[0].reason === "commentsDisabled") {
+                        teaser.innerText = "The project author has disabled comments."
+                    }
+                    else if ( resp_body.error.errors[0].reason === "videoNotFound") {
+                        teaser.innerText = "The project video has been removed by the author."
+                    }
 
-                if ( comments_found ) {
-                    let teaser = this.shadowRoot.getElementById("convo_teaser");
-                    teaser.innerHTML = `See discussion on this project:`;
-
-                    let invitation = this.shadowRoot.getElementById("convo_invitation");
-                    invitation.innerHTML = `Join this conversation <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
                 } else {
-                    let teaser = this.shadowRoot.getElementById("convo_teaser");
-                    teaser.innerHTML = `Be the first to comment <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
+                    comments_found = false;
 
-                    let invitation = this.shadowRoot.getElementById("convo_invitation");
-                    invitation.innerHTML = ``;
+                    for (let comment of resp_body.items) {
+                        comments_found = true;
+                        let comment_div = document.createElement("expo-comment")
+                        comment_div.fromYoutubeComment(comment);
+                        conversation.appendChild(comment_div);
+                    }
 
-                }
+                    if (comments_found) {
+                        teaser.innerHTML = `See discussion on this project:`;
+
+                        let invitation = this.shadowRoot.getElementById("convo_invitation");
+                        invitation.innerHTML = `Join this conversation <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
+                    } else {
+                        teaser.innerHTML = `Be the first to comment <a href="https://youtu.be/${this.video}">on YouTube</a>!`;
+
+                        let invitation = this.shadowRoot.getElementById("convo_invitation");
+                        invitation.innerHTML = ``;
+
+                    }
+                }//else if the response was successful
             })
         }
 
