@@ -1,4 +1,5 @@
 fetch("https://mobetz.github.io/stemexpo-gsite-cards/ExpoGallery.html")
+//fetch("ExpoGallery.html")
     .then((resp_wrapper) => {
         return resp_wrapper.text();
     }).then((ExpoGalleryHTML) => {
@@ -13,13 +14,28 @@ function createComponent(template) {
             super();
             this.attachShadow({mode: 'open'});
             this.shadowRoot.appendChild(template.content.cloneNode(true));
+            this._vertical = false;
         }
 
         static get observedAttributes() {
-            return [];
+            return ['vertical'];
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
+            if (name === 'vertical') {
+                let child_projects = document.getElementById("gallery").children;
+                for ( let project of child_projects ) {
+                    project.vertical = newValue;
+                }
+            }
+        }
+
+        set vertical(newValue) {
+            this.setAttribute('vertical', newValue);
+        }
+
+        get vertical() {
+            return this.getAttribute('vertical')
         }
 
     }

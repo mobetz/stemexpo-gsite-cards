@@ -1,4 +1,5 @@
 fetch("https://mobetz.github.io/stemexpo-gsite-cards/ExpoProject.html")
+//fetch("ExpoProject.html")
     .then((resp_wrapper) => {
         return resp_wrapper.text();
     }).then((ExpoProjectHTML) => {
@@ -17,7 +18,7 @@ function createComponent(template) {
         }
 
         static get observedAttributes() {
-            return ['title', 'author', 'faculty', 'description', 'course', 'video'];
+            return ['title', 'author', 'faculty', 'description', 'course', 'video', 'vertical'];
         }
 
         get title() {
@@ -71,6 +72,13 @@ function createComponent(template) {
             this.setAttribute('video', value);
         }
 
+        get vertical() {
+            this.getAttribute('vertical');
+        }
+
+        set vertical(value) {
+            this.setAttribute('vertical', value);
+        }
 
 
         attributeChangedCallback(name, oldValue, newValue) {

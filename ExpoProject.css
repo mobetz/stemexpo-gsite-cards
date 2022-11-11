@@ -7,21 +7,39 @@ h3 {
     color: #ff0000;
     font-weight: 900;
     font-size: 24px;
+    grid-area: title;
 }
 
 #project_course,#author,#faculty,#description {
     font-weight: bold;
 }
 
+#project_course {
+    grid-area: course;
+}
+
+#author {
+    grid-area: author;
+}
+
+#faculty {
+    grid-area: faculty;
+}
+
 #description {
     font-family: 'Oswald',sans-serif;
     font-size: 12px;
+    grid-area: description;
 }
 
 #comment_container {
     max-height: 250px;
     overflow-y: scroll;
     max-width:  400px;
+}
+
+#comment_section {
+    grid-area: comments;
 }
 
 /* #comment_container  expo-comment:nth-of-type(2n) {
@@ -31,4 +49,19 @@ h3 {
 #video_frame {
     width: 95%;
     aspect-ratio: 16 / 9;
+    grid-area: video;
+    align-self: center;
+    justify-self: center;
+}
+
+:host([vertical=true]) #project_card {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-template-areas:
+     'video title'
+     'video course'
+     'video author'
+     'video faculty'
+     'video description'
+     'video comments';
 }
