@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
           .forEach((card) => {
 
             gallery.appendChild(card);
+
+            if ( gallery.vertical === "true") {
+                card.vertical = true;
+            }
           });
    });
 });

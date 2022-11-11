@@ -52,6 +52,17 @@ h1:after {
     top: 50px;
 }
 
+#intro {
+    max-width: 1140px;
+    margin: auto;
+    margin-top: 60px;
+    padding:10px;
+}
+
+#intro h4 {
+    text-align: center;
+    margin-bottom:20px;
+}
 #banner-image {
     position: absolute;
     top: 0;
