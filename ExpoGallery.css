@@ -6,7 +6,6 @@
 }
 
 #gallery {
-    position: relative;
     display: grid;
     grid-template-areas: var(--project-width) var(--project-width) var(--project-width);
     flex-wrap: wrap;
@@ -17,6 +16,7 @@
 #gallery  ::slotted(expo-project) {
     min-width: var(--project-width);
     margin: var(--project-margins);
+    position: relative;
 }
 
 @media(min-width: 1140px) {
