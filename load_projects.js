@@ -1,7 +1,7 @@
 import STEMExpoProject from "https://mobetz.github.io/stemexpo-gsite-cards/STEMExpoProject.mjs";
 
 
-const department_names = {
+const department_aliases = {
     "Computer Science": ["CS"],
     "Engineering": ["Engineering"],
     "Math & Science": ["Biology", "Math"]
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
    projects_promise.then((projects) => {
       projects
-          .filter((project) => department_names[document.department].indexOf(project.discipline) !== -1 )
+          .filter((project) => document.department.toLowerCase() === project.discipline.toLowerCase() || department_aliases[document.department].indexOf(project.discipline) !== -1 )
           .map((project) => project.getCardFromProject())
           .forEach((card) => {
 
