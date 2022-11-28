@@ -1,6 +1,7 @@
 
 let api_key = "AIzaSyC18e1ls1rwd6Kq_TkBPThaZHu6XjMHwqM";
-let doc_id = "1O9HEs3D54LcF-qd8fYNw1al-NGUQMhkxbFeo7R_oku4";
+//let doc_id = "1O9HEs3D54LcF-qd8fYNw1al-NGUQMhkxbFeo7R_oku4";
+let doc_id = new URL(document.googleSheet).pathname.split("/")[3];
 let sheet_name = "Form Responses 2";
 
 let project_data_url = `https://sheets.googleapis.com/v4/spreadsheets/${doc_id}/values/${sheet_name}?key=${api_key}`
