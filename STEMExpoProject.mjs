@@ -11,7 +11,7 @@ let project_data_url = `https://sheets.googleapis.com/v4/spreadsheets/${doc_id}/
 const field_map = {
     "Timestamp": "timestamp",
     "Email Address": "email",
-    "Discipline": "discipline",
+    "Select Project Discipline (your project will be displayed on the website page based on the selected discipline)": "discipline",
     "Course / Club Title": "course",
     "Faculty Name": "faculty",
     "Presenter Name: Include First and Last Name of all presenters separated by commas": "presenter",
