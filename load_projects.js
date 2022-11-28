@@ -4,7 +4,7 @@ import STEMExpoProject from "https://mobetz.github.io/stemexpo-gsite-cards/STEME
 const department_aliases = {
     "Computer Science": ["CS"],
     "Engineering": ["Engineering"],
-    "Math & Science": ["Biology", "Math"]
+    "Math & Science": ["Biology", "Math", "Science"]
 }
 
 
