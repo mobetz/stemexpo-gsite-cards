@@ -11,13 +11,13 @@ let project_data_url = `https://sheets.googleapis.com/v4/spreadsheets/${doc_id}/
 const field_map = {
     "Timestamp": "timestamp",
     "Email Address": "email",
-    "Select Project Discipline (your project will be displayed on the website page based on the selected discipline)": "discipline",
+    "Select Project Discipline": "discipline",
     "Course / Club Title": "course",
     "Faculty Name": "faculty",
-    "Presenter Name: Include First and Last Name of all presenters separated by commas": "presenter",
+    "Presenter Name": "presenter",
     "Project Title": "title",
-    "Brief Project Description: Write a sentence to introduce your project": "desc",
-    "Add the link to your video:  The videos must be uploaded to YouTube": "video_url"
+    "Brief Project Description": "desc",
+    "Add the link to your video": "video_url"
 }
 
 class STEMExpoProject {
@@ -76,11 +76,14 @@ class STEMExpoProject {
                 for (let project_raw of projects_raw) {
 
                     let project = new STEMExpoProject();
-                    for ( let field in field_map ) {
-                        let idx = headers[field];
-                        let prop = field_map[field];
-                        project[prop] = project_raw[idx];
-
+                    for ( let key in Object.keys(headers) ) {
+                        for ( let field in Object.keys(field_map)) {
+                            if ( key.contains(field)) {
+                                let idx = headers[key];
+                                let prop = field_map[field];
+                                project[prop] = project_raw[idx];
+                            }//if the short name we have matches the long name from the google sheet
+                        }//for each mapped field we know about
                     }//for each column of that project
                     projects_obj.push(project);
 
