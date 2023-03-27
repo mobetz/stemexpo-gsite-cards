@@ -78,7 +78,7 @@ class STEMExpoProject {
                     let project = new STEMExpoProject();
                     for ( let key in Object.keys(headers) ) {
                         for ( let field in Object.keys(field_map)) {
-                            if ( key.contains(field)) {
+                            if ( key.includes(field)) {
                                 let idx = headers[key];
                                 let prop = field_map[field];
                                 project[prop] = project_raw[idx];
