@@ -8,6 +8,7 @@
 #gallery {
     max-width: var(--gallery-width);
     margin: auto;
+    column-gap: 15px;
 }
 
 #gallery  ::slotted(expo-project) {

@@ -10,6 +10,17 @@ h3 {
     grid-area: title;
 }
 
+:host(:not([vertical])) h3 {
+    height: 3em;
+}
+:host(:not([vertical]))    #project_card > p {
+    height: 2em;
+}
+:host(:not([vertical]))    #project_card > p:nth-of-type(4) {
+    height: fit-content;
+}
+
+
 #project_course,#author,#faculty,#description {
     font-weight: bold;
 }
@@ -64,4 +75,5 @@ h3 {
      'video faculty'
      'video description'
      'video comments';
+    column-gap: 15px;
 }
