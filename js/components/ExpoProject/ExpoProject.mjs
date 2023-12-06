@@ -1,6 +1,6 @@
 
-let html_fragment = await fetch(import.meta.resolve("./ExpoProject.html")).then(data => data.text());
-let stylerules = await fetch(import.meta.resolve("./ExpoProject.css")).then(data => data.text());
+let html_fragment = await fetch(import.meta.resolve("./ExpoProject.html"), { mode: "cors" }).then(data => data.text());
+let stylerules = await fetch(import.meta.resolve("./ExpoProject.css"), { mode: "cors" }).then(data => data.text());
 
 let template_container = document.createElement("template");
 template_container.innerHTML = html_fragment;
