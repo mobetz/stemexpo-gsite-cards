@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
    let is_department_nickname = (project) => department_aliases[document.department].indexOf(project.discipline) !== -1;
    let valid_department = (project) => is_in_department(project) || is_department_nickname(project)
 
-   let online_project = (project) => valid_department(project) && project.video_url.length > 0; //only show projects "registered for online" by providing a URL
+   let online_project = (project) => valid_department(project) && project.video_url && project.video_url.length > 0; //only show projects "registered for online" by providing a URL
 
    projects_promise.then((projects) => {
       projects

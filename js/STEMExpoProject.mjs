@@ -14,7 +14,7 @@ const field_map = {
     "Select Project Discipline": "discipline",
     "Course / Club Title": "course",
     "Faculty Name": "faculty",
-    "Presenter Name": "presenter",
+    "Presenter(s) Name": "presenter",
     "Project Title": "title",
     "Brief Project Description": "desc",
     "Add the link to your video": "video_url"
@@ -68,7 +68,9 @@ class STEMExpoProject {
                 let headers = {};
                 for (let i = 0; i < headers_as_arr.length; i++) {
                     let next_header = headers_as_arr[i];
-                    headers[next_header] = i;
+                    let header_cols = headers[next_header] || [];
+                    header_cols.push(i);
+                    headers[next_header] = header_cols;
                 }
 
                 let projects_obj = [];
@@ -78,10 +80,13 @@ class STEMExpoProject {
                     let project = new STEMExpoProject();
                     for ( let key of Object.keys(headers) ) {
                         for ( let field of Object.keys(field_map)) {
-                            if ( key.includes(field)) {
-                                let idx = headers[key];
+                            if ( key.includes(field) ) {
                                 let prop = field_map[field];
-                                project[prop] = project_raw[idx];
+                                for ( let idx of headers[key] ) {
+                                    if ( project_raw[idx] ) { 
+                                        project[prop] = project_raw[idx];
+                                    }
+                                }
                             }//if the short name we have matches the long name from the google sheet
                         }//for each mapped field we know about
                     }//for each column of that project
