@@ -84,7 +84,8 @@ class ExpoProject extends HTMLElement {
         if ( name === "title" ) {
             this.shadowRoot.querySelector("#project_title").innerText = newValue;
         } else if (name === "author" ) {
-            this.shadowRoot.querySelector("#author").innerText = newValue;
+            let people = newValue.split(/,\s*/).map(n => n.trim().split(/\s+/)[0] ).join(", "); //only show first names, TEMP FIX
+            this.shadowRoot.querySelector("#author").innerText = people;
         } else if ( name === "faculty" ) {
             this.shadowRoot.querySelector("#faculty").innerText = newValue;
         }else if ( name === "description" ) {
