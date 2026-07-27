@@ -27,13 +27,16 @@
 
         let semester = params.get("semester");
         let year = params.get("year");
-        let startdate = params.get("start");
-        let enddate = params.get("end");
+        let startint = parseInt(params.get("start"));
+        let endint = parseInt(params.get("end"));
+
+        let startdate = new Date(Math.floor(startint/10000), Math.floor(startint/100%100)-1, Math.floor(startint%100));
+        let enddate = new Date(Math.floor(endint/10000), Math.floor(endint/100%100)-1, Math.floor(endint%100));
         let vertical = params.get("vertical");
 
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#semester").innerText = semester.substring(0, 1).toUpperCase() + semester.substring(1).toLowerCase() + " " + year;
-            document.querySelector("#dates").innerText = startdate + " through " + enddate;
+            document.querySelector("#dates").innerText = startdate.toLocaleDateString() + " through " + enddate.toLocaleDateString();
             document.querySelector("#dept").innerText = document.department;
             document.querySelector("expo-gallery").setAttribute("vertical", vertical);
         });
