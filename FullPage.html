@@ -35,7 +35,7 @@
             document.querySelector("#semester").innerText = semester.substring(0, 1).toUpperCase() + semester.substring(1).toLowerCase() + " " + year;
             document.querySelector("#dates").innerText = startdate + " through " + enddate;
             document.querySelector("#dept").innerText = document.department;
-            document.querySelector("expo-gallery").vertical = vertical;
+            document.querySelector("expo-gallery").setAttribute("vertical", vertical);
         });
 
     </script>

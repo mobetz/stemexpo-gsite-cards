@@ -13,7 +13,7 @@ let stylesheet = await new CSSStyleSheet().replace(stylerules);
             this.attachShadow({mode: 'open'});
             this.shadowRoot.adoptedStyleSheets = [stylesheet];
             this.shadowRoot.appendChild(template_container.content.cloneNode(true));
-            this._vertical = false;
+            this._vertical = this.getAttribute("vertical") || false;
         }
 
         static get observedAttributes() {
