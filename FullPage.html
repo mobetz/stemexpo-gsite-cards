@@ -29,16 +29,23 @@
         let year = params.get("year");
         let startint = parseInt(params.get("start"));
         let endint = parseInt(params.get("end"));
+        let inpersoniso = params.get("inperson", undefined);
 
         let startdate = new Date(Math.floor(startint/10000), Math.floor(startint/100%100)-1, Math.floor(startint%100));
         let enddate = new Date(Math.floor(endint/10000), Math.floor(endint/100%100)-1, Math.floor(endint%100));
         let vertical = params.get("vertical");
+
+        let inpersondate = new Date(inpersoniso);
 
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#semester").innerText = semester.substring(0, 1).toUpperCase() + semester.substring(1).toLowerCase() + " " + year;
             document.querySelector("#dates").innerText = startdate.toLocaleDateString() + " through " + enddate.toLocaleDateString();
             document.querySelector("#dept").innerText = document.department;
             document.querySelector("expo-gallery").setAttribute("vertical", vertical);
+
+            if ( inpersoniso ) {
+                document.querySelector("#inperson").innerText = `Want to see our students' projects on campus? Visit the Wellesley Hills Cafeteria this ${inpersondate.toLocaleDateString("en-US", {weekday: "long"})}, ${inpersondate.toLocaleDateString("en-US", {month: "long", day: "numeric"})} at ${inpersondate.toLocaleString("en-US", {dateStyle: undefined, hour: "numeric"})} and talk to the presenters in person!`;
+            }
         });
 
     </script>
@@ -64,6 +71,7 @@
     Below you will find short videos describing the projects our students worked on this semester. Please enjoy the show!
     We would love to hear from you.  Please leave a comment or a question for the participants in the comments section.
     Participants will be checking the comment section daily from <span id="dates">05/04/2026 through 05/08/2026</span> and replying to questions and comments.
+    <span id="inperson"></span>
 </p>
 <p style="margin-top: 10px;">
     <em>Note: For best results please use Google Chrome to view this site</em>
