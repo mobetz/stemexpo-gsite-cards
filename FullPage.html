@@ -17,7 +17,7 @@
             "cs": "Computer Science"
         };
 
-        let dept = dept_map.get(params.get("dept"));
+        let dept = dept_map[params.get("dept")];
         let sheet_id = params.get("sheet_id");
 
 
@@ -29,11 +29,13 @@
         let year = params.get("year");
         let startdate = params.get("start");
         let enddate = params.get("end");
+        let vertical = params.get("vertical");
 
         document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector("#semester").innerText = semester.toTitleCase() + " " + year;
-            document.querySelector("#dates").innerText = start + " through " + end;
+            document.querySelector("#semester").innerText = semester.substring(0, 1).toUpperCase() + semester.substring(1).toLowerCase() + " " + year;
+            document.querySelector("#dates").innerText = startdate + " through " + enddate;
             document.querySelector("#dept").innerText = document.department;
+            document.querySelector("expo-gallery").vertical = vertical;
         });
 
     </script>
@@ -65,7 +67,7 @@
 </p>
 </div>
 
-<expo-gallery id="gallery" vertical="true">
+<expo-gallery id="gallery" vertical="false">
 
 </expo-gallery>
 </body>
