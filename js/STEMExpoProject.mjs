@@ -54,7 +54,7 @@ class STEMExpoProject {
      */
     static getProjects() {
 
-        return fetch(project_data_url)
+        return fetch(project_data_url, {mode: 'cors'})
             .then((resp) => {
                 if (resp.status === 200) {
                     return resp.json();
